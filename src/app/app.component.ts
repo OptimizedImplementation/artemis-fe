@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { take } from 'rxjs';
+import { NasaService } from './services/nasa-api/nasa.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'artemisFe';
+  title = 'Artemis';
+
+  constructor (
+    private nasa: NasaService,
+  ) {}
+
+  ngOnInit() {
+    this.nasa.apod().pipe(take(1)).subscribe((resp) => {
+      console.log(resp);
+    });
+  }
 }
