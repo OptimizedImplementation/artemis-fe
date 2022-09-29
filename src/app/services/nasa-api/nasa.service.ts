@@ -38,13 +38,22 @@ export class NasaService {
     ) {}
 
     // APOD
-    public apod(inputParams?: ApodParams): Observable<ApodResp> {
-        return this.http.get<ApodResp>(`${this.apodUrl}`, {
-            'params': {
-                ...this.baseParams,
-                ...inputParams,
-            }
-        });
+    public apod(inputParams: ApodParams): Observable<ApodResp | ApodResp[]> {
+        if (inputParams.count || inputParams.start_date) {
+            return this.http.get<ApodResp[]>(`${this.apodUrl}`, {
+                'params': {
+                    ...this.baseParams,
+                    ...inputParams,
+                }
+            });
+        } else {
+            return this.http.get<ApodResp>(`${this.apodUrl}`, {
+                'params': {
+                    ...this.baseParams,
+                    ...inputParams,
+                }
+            });
+        }
     }
 
     // NEO
