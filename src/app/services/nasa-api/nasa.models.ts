@@ -6,7 +6,7 @@ export interface BaseParams {
 
 export interface ApodParams extends BaseParams {
     date?: string;
-    starte_date?: string;
+    start_date?: string;
     end_date?: string;
     count?: number;
     thummbs?: boolean;
