@@ -74,10 +74,6 @@ export interface EstimatedDiameterData {
 }
 
 // Lookup
-export interface NeoLookupParams extends BaseParams {
-    asteroid_id?: number;
-}
-
 export interface NeoLookupResp {
 
 }

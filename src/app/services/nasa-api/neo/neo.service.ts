@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable, range, tap } from "rxjs";
+import { map, Observable } from "rxjs";
 import { NasaService } from "../nasa.service";
 import { Neo, NeoBrowseResp, NeoFeedParams, NeoFeedRawResp, NeoFeedResp, NeoLookupResp, NeoResp } from "./neo.models";
 
@@ -40,7 +40,7 @@ export class NeoService extends NasaService {
         };
 
         return this.http.get<NeoFeedRawResp>(`${this.neoFeedUrl}`, {
-            'params' : {
+            'params': {
                 ...this.baseParams,
                 ...inputParams,
             }
@@ -51,10 +51,12 @@ export class NeoService extends NasaService {
         );
     }
 
-    public neoLookup(): Observable<NeoLookupResp> {
-        const transformResp = () => {};
-
-        return this.http.get<NeoLookupResp>(`${this.neoLookupUrl}`, {});
+    public neoLookup(asteroid_id: number): Observable<NeoLookupResp> {
+        return this.http.get<NeoLookupResp>(`${this.neoLookupUrl}/${asteroid_id}`, {
+            'params': {
+                ...this.baseParams
+            }
+        });
     }
 
     public neoBrowse(): Observable<NeoBrowseResp> {
