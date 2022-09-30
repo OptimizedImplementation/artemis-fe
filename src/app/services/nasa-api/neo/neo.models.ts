@@ -6,10 +6,14 @@ export interface NeoFeedParams extends BaseParams {
     end_date?: string;
 }
 
-export interface NeoFeedResp {
+export interface NeoFeedRawResp {
     element_count: number;
     links: Links;
     near_earth_objects: Object;
+}
+
+export interface NeoFeedResp extends NeoFeedRawResp {
+    near_earth_objects: Neo[];
 }
 
 export interface Links {
@@ -18,7 +22,7 @@ export interface Links {
     self: string;
 }
 
-export interface Neo {
+export interface NeoResp {
     absolute_magnitude_h: number;
     close_approach_data: CloseApproach[];
     estimated_diameter: EstimatedDiameter;
@@ -31,7 +35,7 @@ export interface Neo {
     neo_reference_id: string;
 }
 
-export interface NeoDate extends Neo {
+export interface Neo extends NeoResp {
     date: string;
 }
 
