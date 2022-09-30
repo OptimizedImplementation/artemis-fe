@@ -17,7 +17,7 @@ export class NeoService extends NasaService {
     ) { super() }
 
     // NEO
-    public neoFeed(inputParams?: NeoFeedParams): Observable<NeoFeedRawResp> {
+    public neoFeed(inputParams?: NeoFeedParams): Observable<NeoFeedResp> {
         const transformResp = (resp: NeoFeedRawResp) => {
             const dates = Object.keys(resp.near_earth_objects);
             const neos = Object.values(resp.near_earth_objects);
@@ -37,7 +37,7 @@ export class NeoService extends NasaService {
                 ...resp,
                 near_earth_objects: transformedNeos,
             } as NeoFeedResp;
-        }
+        };
 
         return this.http.get<NeoFeedRawResp>(`${this.neoFeedUrl}`, {
             'params' : {
@@ -52,6 +52,8 @@ export class NeoService extends NasaService {
     }
 
     public neoLookup(): Observable<NeoLookupResp> {
+        const transformResp = () => {};
+
         return this.http.get<NeoLookupResp>(`${this.neoLookupUrl}`, {});
     }
 

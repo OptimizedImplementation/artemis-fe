@@ -21,7 +21,7 @@ export class ApodService extends NasaService {
             } else {
                 return [resp] as ApodResp[];
             }
-        }
+        };
 
         return this.http.get<ApodResp[]>(`${this.apodUrl}`, {
             'params': {
