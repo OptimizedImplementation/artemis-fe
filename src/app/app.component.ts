@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { take } from 'rxjs';
 import { DateService } from './services/date/date.service';
-import { ApodParams } from './services/nasa-api/nasa.models';
-import { NasaService } from './services/nasa-api/nasa.service';
+import { ApodParams } from './services/nasa-api/apod/apod.models';
+import { ApodService } from './services/nasa-api/apod/apod.service';
+import { NeoFeedParams } from './services/nasa-api/neo/neo.models';
+import { NeoService } from './services/nasa-api/neo/neo.service';
 
 @Component({
     selector: 'app-root',
@@ -13,8 +15,9 @@ export class AppComponent {
     title = 'Artemis';
 
     constructor (
-        private readonly nasa: NasaService,
         private readonly date: DateService,
+        private readonly apod: ApodService,
+        private readonly neo: NeoService,
     ) {}
 
     ngOnInit() {
@@ -24,11 +27,34 @@ export class AppComponent {
         // this.apodRequest({
         //     start_date: this.date.getDate(6, 6, 2022),
         // });
+        // this.neoFeedRequest({
+        //     start_date: this.date.getDate(9, 28, 2022)
+        // });
+        // this.neoLookupRequest(2489453);
+        this.neoBrowseRequest();
     }
 
     public apodRequest(inputParams: ApodParams) {
-        this.nasa.apod(inputParams).pipe(take(1)).subscribe((resp) => {
+        this.apod.apod(inputParams).pipe(take(1)).subscribe((resp) => {
             console.log(resp);
         });
+    }
+
+    public neoFeedRequest(inputParams: NeoFeedParams) {
+        this.neo.neoFeed(inputParams).pipe(take(1)).subscribe((resp) => {
+            console.log(resp);
+        });
+    }
+
+    public neoLookupRequest(asteroid_id: number) {
+        this.neo.neoLookup(asteroid_id).pipe(take(1)).subscribe((resp) => {
+            console.log(resp);
+        });
+    }
+
+    public neoBrowseRequest() {
+        this.neo.neoBrowse().pipe(take(1)).subscribe((resp) => {
+            console.log(resp);
+        })
     }
 }
