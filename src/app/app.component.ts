@@ -30,7 +30,8 @@ export class AppComponent {
         // this.neoFeedRequest({
         //     start_date: this.date.getDate(9, 28, 2022)
         // });
-        this.neoLookupRequest(2489453);
+        // this.neoLookupRequest(2489453);
+        this.neoBrowseRequest();
     }
 
     public apodRequest(inputParams: ApodParams) {
@@ -49,5 +50,11 @@ export class AppComponent {
         this.neo.neoLookup(asteroid_id).pipe(take(1)).subscribe((resp) => {
             console.log(resp);
         });
+    }
+
+    public neoBrowseRequest() {
+        this.neo.neoBrowse().pipe(take(1)).subscribe((resp) => {
+            console.log(resp);
+        })
     }
 }

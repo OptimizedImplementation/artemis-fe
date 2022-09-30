@@ -60,6 +60,10 @@ export class NeoService extends NasaService {
     }
 
     public neoBrowse(): Observable<NeoBrowseResp> {
-        return this.http.get<NeoBrowseResp>(`${this.neoBrowseUrl}`, {});
+        return this.http.get<NeoBrowseResp>(`${this.neoBrowseUrl}`, {
+            'params': {
+                ...this.baseParams
+            }
+        });
     }
 }

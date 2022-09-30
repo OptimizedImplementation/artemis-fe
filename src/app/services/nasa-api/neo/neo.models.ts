@@ -113,5 +113,18 @@ export interface OrbitClass {
 
 // Browse
 export interface NeoBrowseResp {
+    links: Links;
+    near_earth_objects: NeoBrowse[];
+    page: NeoPage;
+}
 
+export interface NeoBrowse extends NeoLookupResp {
+    name_limited: string;
+}
+
+export interface NeoPage {
+    number: number;
+    size: number;
+    total_elements: number;
+    total_pages: number;
 }
