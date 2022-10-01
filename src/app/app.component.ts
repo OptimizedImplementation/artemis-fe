@@ -3,6 +3,8 @@ import { take } from 'rxjs';
 import { DateService } from './services/date/date.service';
 import { ApodParams } from './services/nasa-api/apod/apod.models';
 import { ApodService } from './services/nasa-api/apod/apod.service';
+import { EarthAssetsParams, EarthImageryParams } from './services/nasa-api/earth/earth.models';
+import { EarthService } from './services/nasa-api/earth/earth.service';
 import { NeoFeedParams } from './services/nasa-api/neo/neo.models';
 import { NeoService } from './services/nasa-api/neo/neo.service';
 
@@ -18,6 +20,7 @@ export class AppComponent {
         private readonly date: DateService,
         private readonly apod: ApodService,
         private readonly neo: NeoService,
+        private readonly earth: EarthService,
     ) {}
 
     ngOnInit() {
@@ -31,7 +34,16 @@ export class AppComponent {
         //     start_date: this.date.getDate(9, 28, 2022)
         // });
         // this.neoLookupRequest(2489453);
-        this.neoBrowseRequest();
+        // this.neoBrowseRequest();
+        this.earthImageryRequest({
+            lat: 29.78,
+            lon: -95.33,
+        });
+        this.earthAssetsRequest({
+            lat: 29.78,
+            lon: -95.33,
+            date: this.date.getDate(12, 6, 2020),
+        });
     }
 
     public apodRequest(inputParams: ApodParams) {
@@ -55,6 +67,18 @@ export class AppComponent {
     public neoBrowseRequest() {
         this.neo.neoBrowse().pipe(take(1)).subscribe((resp) => {
             console.log(resp);
-        })
+        });
+    }
+
+    public earthImageryRequest(inputParams: EarthImageryParams) {
+        this.earth.earthImagery(inputParams).pipe(take(1)).subscribe((resp) => {
+            console.log(resp);
+        });
+    }
+
+    public earthAssetsRequest(inputParams: EarthAssetsParams) {
+        this.earth.earthAssets(inputParams).pipe(take(1)).subscribe((resp) => {
+            console.log(resp);
+        });
     }
 }
